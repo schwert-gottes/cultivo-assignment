@@ -15,46 +15,67 @@ export default function Home() {
       </div>
 
       <div className={styles.placeholder}>banner goes here</div>
-      <Container>
+      <Container
+        maxWidth='lg'
+        classes={{
+          root: styles.mainContainer,
+        }}
+      >
         <Grid
           container
           classes={{
             root: styles.container,
           }}
         >
-          <Grid item xs={12} md={3}>
-            <Box className={styles.bannerBgWrapper}>
-              <ReportIcon />
-              <Box>
-                <p> Next Step</p>
-                <h6>Expert Report</h6>
-              </Box>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            classes={{
+              root: styles.bannerBgWrapper,
+            }}
+          >
+            <ReportIcon />
+            <Box>
+              <p> Next Step</p>
+              <h6>Expert Report</h6>
             </Box>
           </Grid>
           <Grid
             container
             item
             xs={12}
-            md={9}
+            md={8}
             classes={{
-              root: styles.ctaConteiner,
+              root: styles.ctaContainer,
             }}
           >
-            <Grid item xs={12} md={7}>
-              <Box>
-                <p>
-                  Please get in touch if you would like an expert report for
-                  this site. Benefits include:
-                </p>
-                <ul>
-                  <li> Key insights from our expert team</li>
-                  <li>An in-depth analysis of the site</li>
-                  <li>Recommendations of next steps to take</li>
-                </ul>
-              </Box>
+            <Grid
+              item
+              xs={12}
+              md={8}
+              gap={2}
+              classes={{ root: styles.contentWrapper }}
+            >
+              <p>
+                Please get in touch if you would like an expert report for this
+                site. Benefits include:
+              </p>
+              <ul>
+                <li> Key insights from our expert team</li>
+                <li>An in-depth analysis of the site</li>
+                <li>Recommendations of next steps to take</li>
+              </ul>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <Button>Get in Touch</Button>
+            <Grid item xs={12} md={3.5}>
+              <Button
+                variant='contained'
+                classes={{
+                  contained: styles.ctaButton,
+                }}
+              >
+                Get in Touch
+              </Button>
             </Grid>
           </Grid>
         </Grid>
