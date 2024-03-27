@@ -1,12 +1,14 @@
 'use client'
 
 import ReportIcon from '@/assets/svgs/ReportIcon'
+import { ContactFormDialog } from '@/components/ContactFormDialog'
 import { Box, Button, Container, Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
 export default function Home() {
   const [isMessageSent, setIsMessageSent] = useState<boolean>(false)
+  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false)
 
   useEffect(() => {
     const IS_MSG_SENT =
@@ -14,6 +16,17 @@ export default function Home() {
 
     setIsMessageSent(IS_MSG_SENT === 'true')
   }, [])
+
+  const handleOpenDialog = () => {
+    if (!isMessageSent) {
+      setIsOpenDialog(true)
+    }
+  }
+
+  const handleFormSubmit = () => {
+    localStorage.setItem('is-msg-sent', 'true')
+    setIsMessageSent(true)
+  }
 
   return (
     <main className={styles.main}>
@@ -95,10 +108,7 @@ export default function Home() {
                 classes={{
                   contained: styles.ctaButton,
                 }}
-                onClick={() => {
-                  localStorage.setItem('is-msg-sent', 'true')
-                  setIsMessageSent(true)
-                }}
+                onClick={handleOpenDialog}
               >
                 {isMessageSent ? 'Send another message' : ' Get in Touch'}
               </Button>
@@ -106,6 +116,11 @@ export default function Home() {
           </Grid>
         </Grid>
       </Container>
+      <ContactFormDialog
+        open={isOpenDialog}
+        onClose={() => setIsOpenDialog(false)}
+        onFormSubmitted={handleFormSubmit}
+      />
     </main>
   )
 }
