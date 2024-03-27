@@ -2,9 +2,19 @@
 
 import ReportIcon from '@/assets/svgs/ReportIcon'
 import { Box, Button, Container, Grid } from '@mui/material'
+import { useEffect, useState } from 'react'
 import styles from './page.module.css'
 
 export default function Home() {
+  const [isMessageSent, setIsMessageSent] = useState<boolean>(false)
+
+  useEffect(() => {
+    const IS_MSG_SENT =
+      typeof window !== 'undefined' ? localStorage.getItem('is-msg-sent') : ''
+
+    setIsMessageSent(IS_MSG_SENT === 'true')
+  }, [])
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -30,7 +40,7 @@ export default function Home() {
           <Grid
             item
             xs={12}
-            md={4}
+            md={3.8}
             classes={{
               root: styles.bannerBgWrapper,
             }}
@@ -38,14 +48,16 @@ export default function Home() {
             <ReportIcon />
             <Box>
               <p> Next Step</p>
-              <h6>Expert Report</h6>
+              <h6>
+                {isMessageSent ? 'Expert Report Requested' : 'Expert Report'}
+              </h6>
             </Box>
           </Grid>
           <Grid
             container
             item
             xs={12}
-            md={8}
+            md={8.2}
             classes={{
               root: styles.ctaContainer,
             }}
@@ -54,27 +66,41 @@ export default function Home() {
               item
               xs={12}
               md={8}
-              gap={2}
+              gap={1}
               classes={{ root: styles.contentWrapper }}
             >
-              <p>
-                Please get in touch if you would like an expert report for this
-                site. Benefits include:
-              </p>
-              <ul>
-                <li> Key insights from our expert team</li>
-                <li>An in-depth analysis of the site</li>
-                <li>Recommendations of next steps to take</li>
-              </ul>
+              {isMessageSent ? (
+                <p>
+                  We received your messge. Please feel free to get in touch
+                  again if you would like to include any further details or ask
+                  any other questions. We are eager to assist you.
+                </p>
+              ) : (
+                <>
+                  <p>
+                    Please get in touch if you would like an expert report for
+                    this site. Benefits include:
+                  </p>
+                  <ul>
+                    <li> Key insights from our expert team</li>
+                    <li>An in-depth analysis of the site</li>
+                    <li>Recommendations of next steps to take</li>
+                  </ul>
+                </>
+              )}
             </Grid>
-            <Grid item xs={12} md={3.5}>
+            <Grid item xs={12} md={3.7}>
               <Button
                 variant='contained'
                 classes={{
                   contained: styles.ctaButton,
                 }}
+                onClick={() => {
+                  localStorage.setItem('is-msg-sent', 'true')
+                  setIsMessageSent(true)
+                }}
               >
-                Get in Touch
+                {isMessageSent ? 'Send another message' : ' Get in Touch'}
               </Button>
             </Grid>
           </Grid>

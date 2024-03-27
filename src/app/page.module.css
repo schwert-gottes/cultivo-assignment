@@ -51,6 +51,10 @@
   border-bottom-left-radius: 8px;
 }
 
+.bannerBgWrapper div {
+  margin-top: 8px;
+}
+
 .bannerBgWrapper p {
   color: #ffffff;
   font-family: 'Montserrat', sans-serif;
